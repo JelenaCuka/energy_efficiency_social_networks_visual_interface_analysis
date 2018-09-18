@@ -104,14 +104,14 @@ if(count($prikaz)>0){
 <section id="razredi">
   <div class="container">
   <h1 class="display-4">SLUČAJ 1</h1>
-  <p class="lead"><strong>Izračunata potrošnja energije OLED monitora u razdoblju jedne godine </strong><strong>P=</strong><?php echo $potrosnjaEnergijeUGodiniDanaS1;  ?> <strong>J</strong></p>
-  <p class="lead"><strong>Izračunata potrošnja energije OLED monitora u razdoblju jedne godine uz upotrebu tamnijih boja </strong><strong>P=</strong><?php echo $potrosnjaEnergijeUGodiniDanaS3;  ?> <strong>J</strong></p>
-  <p class="lead"><strong>Postignuta ušteda energije (J) </strong><strong class="font-weight-bold">UŠTEDA ENERGIJE=</strong><?php echo $potrosnjaEnergijeUGodiniDanaS1-$potrosnjaEnergijeUGodiniDanaS3;  ?> <strong>(J)</strong></p>
+  <p class="lead"><strong>Izračunata potrošnja energije OLED monitora u razdoblju jedne godine </strong><strong>P=</strong><?php echo $potrosnjaEnergijeUGodiniDanaS1/1000;  ?> <strong>GW</strong></p>
+  <p class="lead"><strong>Izračunata potrošnja energije OLED monitora u razdoblju jedne godine uz upotrebu tamnijih boja </strong><strong>P=</strong><?php echo $potrosnjaEnergijeUGodiniDanaS3/1000;  ?> <strong>GW</strong></p>
+  <p class="lead"><strong>Postignuta ušteda energije (J) </strong><strong class="font-weight-bold">UŠTEDA ENERGIJE=</strong><?php echo $potrosnjaEnergijeUGodiniDanaS1/1000-$potrosnjaEnergijeUGodiniDanaS3/1000;  ?> <strong>(GW)</strong></p>
   <p class="lead"><strong>Postignuta ušteda energije (%) </strong><strong class="font-weight-bold">UŠTEDA ENERGIJE=</strong><?php echo ($potrosnjaEnergijeUGodiniDanaS1-$potrosnjaEnergijeUGodiniDanaS3)/$potrosnjaEnergijeUGodiniDanaS1*100;  ?> <strong>(%)</strong></p>
   <h1 class="display-4">SLUČAJ 2</h1>
-  <p class="lead"><strong>Izračunata potrošnja energije OLED monitora u razdoblju jedne godine </strong><strong>P=</strong><?php echo $potrosnjaEnergijeUGodiniDanaS2;  ?> <strong>J</strong></p>
-  <p><strong>Izračunata potrošnja energije OLED monitora u razdoblju jedne godine uz upotrebu tamnijih boja </strong><strong>P=</strong><?php echo $potrosnjaEnergijeUGodiniDanaS4;  ?> <strong>J</strong></p>
-    <p class="lead"><strong>Postignuta ušteda energije (J) </strong><strong class="font-weight-bold">UŠTEDA ENERGIJE=</strong><?php echo $potrosnjaEnergijeUGodiniDanaS2-$potrosnjaEnergijeUGodiniDanaS4;  ?> <strong>(J)</strong></p>
+  <p class="lead"><strong>Izračunata potrošnja energije OLED monitora u razdoblju jedne godine </strong><strong>P=</strong><?php echo $potrosnjaEnergijeUGodiniDanaS2/1000;  ?> <strong>GW</strong></p>
+  <p><strong>Izračunata potrošnja energije OLED monitora u razdoblju jedne godine uz upotrebu tamnijih boja </strong><strong>P=</strong><?php echo $potrosnjaEnergijeUGodiniDanaS4/1000;  ?> <strong>GW</strong></p>
+    <p class="lead"><strong>Postignuta ušteda energije (J) </strong><strong class="font-weight-bold">UŠTEDA ENERGIJE=</strong><?php echo $potrosnjaEnergijeUGodiniDanaS2/1000-$potrosnjaEnergijeUGodiniDanaS4/1000;  ?> <strong>(GW)</strong></p>
    <p class="lead"><strong>Postignuta ušteda energije (%) </strong><strong class="font-weight-bold">UŠTEDA ENERGIJE=</strong><?php echo ($potrosnjaEnergijeUGodiniDanaS2-$potrosnjaEnergijeUGodiniDanaS4)/$potrosnjaEnergijeUGodiniDanaS2*100;  ?> <strong>(%)</strong></p>
   <h1 class="display-4">info</h1>
   <p class="lead">Ukupni postotak promjene boje na zaslonu <?php echo $postotakPromjeneBoje ;?><strong>(%)</strong></p>
@@ -136,9 +136,9 @@ function drawChart() {
 	  echo "['Boja', 'Potrosnja', { role: 'style' }],";
 	  for ($i = 0; $i < count($prikaz); $i++) {
 		if($i==(count($prikaz)-1)){
-			echo "['".$prikaz[$i]->getRGBString()."',".$prikaz[$i]->getCalculatedPowerConsumptionPerYearCase1().",'".$prikaz[$i]->getHexValue()."'"."]";
+			echo "['".$prikaz[$i]->getRGBString()."',".$prikaz[$i]->getCalculatedPowerConsumptionPerYearCase1()/1000 .",'".$prikaz[$i]->getHexValue()."'"."]";
 		}else{
-			echo "['".$prikaz[$i]->getRGBString()."',".$prikaz[$i]->getCalculatedPowerConsumptionPerYearCase1().",'".$prikaz[$i]->getHexValue()."'"."],";
+			echo "['".$prikaz[$i]->getRGBString()."',".$prikaz[$i]->getCalculatedPowerConsumptionPerYearCase1()/1000 .",'".$prikaz[$i]->getHexValue()."'"."],";
 		}
 		if($i==(count($prikaz)-1)){
 			$colors.="'".$prikaz[$i]->getHexValue()."'";
@@ -148,7 +148,7 @@ function drawChart() {
 	}
 	  ?>
 ]);
-  var options = {title:'Potrošnja energije 1 godini',height:800,bar:{gap: 0 }};
+  var options = {title:'Potrošnja energije 1 godini (GW)',height:800,bar:{gap: 0 }};
   var chart = new google.visualization.ColumnChart(document.getElementById('histogram1'));
   chart.draw(data, options);
 }
@@ -160,16 +160,16 @@ function drawChart2() {
 	  echo "['Boja', 'Potrosnja', { role: 'style' }],";
 	  for ($i = 0; $i < 15; $i++) {
 		if($i==(count($prikaz)-1)){
-			echo "['".$prikaz[$i]->getRGBString()."',".$prikaz[$i]->getCalculatedPowerConsumptionPerYearCase1().",'".$prikaz[$i]->getHexValue()."'"."]";
+			echo "['".$prikaz[$i]->getRGBString()."',".$prikaz[$i]->getCalculatedPowerConsumptionPerYearCase1()/1000 .",'".$prikaz[$i]->getHexValue()."'"."]";
 		}else{
-			echo "['".$prikaz[$i]->getRGBString()."',".$prikaz[$i]->getCalculatedPowerConsumptionPerYearCase1().",'".$prikaz[$i]->getHexValue()."'"."],";
+			echo "['".$prikaz[$i]->getRGBString()."',".$prikaz[$i]->getCalculatedPowerConsumptionPerYearCase1()/1000 .",'".$prikaz[$i]->getHexValue()."'"."],";
 		}
 	}
 	  ?>
 ]);
-  var options2 = {title:'Prikaz prvih 15 klasa potrošnje energije u 1 godini',height:800,bar:{gap: 0 },
+  var options2 = {title:'Prikaz prvih 15 klasa potrošnje energije u 1 godini (GW)',height:800,bar:{gap: 0 },
   hAxis: {title: "Boje" , slantedText:true, slantedTextAngle:90 },
-  vAxis: {title: "Potrošnja (J)"}
+  vAxis: {title: "Potrošnja (GW)"}
   };
   var chart2 = new google.visualization.ColumnChart(document.getElementById('histogram2'));
   chart2.draw(data2, options2);
@@ -183,8 +183,8 @@ function drawChart2() {
                 <tr>
 					<th>#</th>
                     <th>OZNAKA RAZREDA (R,G,B)</th>
-                    <th>Potrošena energija u 1 godini (J) SLUČAJ 1</th>
-					<th>Potrošena energija u 1 godini (J) SLUČAJ 2</th>
+                    <th>Potrošena energija u 1 godini (GW) SLUČAJ 1</th>
+					<th>Potrošena energija u 1 godini (GW) SLUČAJ 2</th>
 					<th>Prosječni postotak zaslona</th>
                     <th>"Boja"</th>
                 </tr>
@@ -203,10 +203,10 @@ function drawChart2() {
 						echo "(".$prikaz[$i]->getR().",".$prikaz[$i]->getG().",".$prikaz[$i]->getB().")";	
 						echo "</td>";	
 						echo "<td>";	
-						echo $prikaz[$i]->getCalculatedPowerConsumptionPerYearCase1();	
+						echo $prikaz[$i]->getCalculatedPowerConsumptionPerYearCase1()/1000;	
 						echo "</td>";
 						echo "<td>";	
-						echo $prikaz[$i]->getCalculatedPowerConsumptionPerYearCase2();
+						echo $prikaz[$i]->getCalculatedPowerConsumptionPerYearCase2()/1000;
 						echo "</td>";
 						echo "<td>";	
 						echo $prikaz[$i]->getAverageScreenPercentage();
@@ -233,8 +233,8 @@ function drawChart2() {
                 <tr>
 					<th>#</th>
                     <th>OZNAKA RAZREDA (R,G,B)</th>
-                    <th>Potrošena energija u 1 godini (J) SLUČAJ 1</th>
-					<th>Potrošena energija u 1 godini (J) SLUČAJ 2</th>
+                    <th>Potrošena energija u 1 godini (GW) SLUČAJ 1</th>
+					<th>Potrošena energija u 1 godini (GW) SLUČAJ 2</th>
 					<th>Prosječni postotak zaslona</th>
                     <th>"Boja"</th>
                 </tr>
@@ -255,10 +255,10 @@ function drawChart2() {
 						echo "(".$modificiraneKlase[$i]->getR().",".$modificiraneKlase[$i]->getG().",".$modificiraneKlase[$i]->getB().")";	
 						echo "</td>";	
 						echo "<td>";	
-						echo $modificiraneKlase[$i]->getCalculatedPowerConsumptionPerYearCase1();	
+						echo $modificiraneKlase[$i]->getCalculatedPowerConsumptionPerYearCase1()/1000;	
 						echo "</td>";
 						echo "<td>";	
-						echo $modificiraneKlase[$i]->getCalculatedPowerConsumptionPerYearCase2();
+						echo $modificiraneKlase[$i]->getCalculatedPowerConsumptionPerYearCase2()/1000;
 						echo "</td>";
 						echo "<td>";	
 						echo $modificiraneKlase[$i]->getAverageScreenPercentage();

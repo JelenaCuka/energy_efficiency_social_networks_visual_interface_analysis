@@ -73,35 +73,27 @@ class EnergetskiRazredBoje {
         return $this->calculatedPowerConsumptionPerYearCase2;
     }	
 	public function calculateYearConsumptionCase1() {
-		//averageHoursADayPeryUser
-		$averageTimePerDayOneUserSpendsOnSocialNetworksHours=2.25;
-		//N_social_networks_daily_users
+		//broj korisnika društvenih mreža
 		$numberOfUsers=2620000000;
-		//365 days
-		//24 hours ->not 24 hours becuse there is variable $averageTimePerDayOneUserSpendsOnSocialNetworksHours
-		//60 minutes
-		//60 seconds
-		//% oled monitors
+		//prosječno vrijeme koje korisnik provodi na društvenoj mreži dnevno
+		$averageTimePerDayOneUserSpendsOnSocialNetworksHours=2.25;
+		//365 dana u godini
+		// udio(%) smartphone oled zaslona na cijelom tržištu zaslona
 		$OLEDmonitorsShare=0.308;
-		$OtherCalculatedParameters=$averageTimePerDayOneUserSpendsOnSocialNetworksHours*$numberOfUsers*365*60*60*$OLEDmonitorsShare;
+		$OtherCalculatedParameters=$averageTimePerDayOneUserSpendsOnSocialNetworksHours*$numberOfUsers*365*$OLEDmonitorsShare;
+		//rezolucija (promatrani slučaj 1)
 		$NumberOfPixelsCase1=750*1334;
-		$calculationResult=$OtherCalculatedParameters*$NumberOfPixelsCase1*$this->power*$this->averageScreenPercentage;
+		//vrijeme*udioNaTržištuZaslona*brojKorisnika*jediničnaPotrošnjaPikselaKlase*ProsječniUdioKlaseNaZaslonu
+		$calculationResult=$OtherCalculatedParameters*$NumberOfPixelsCase1*($this->power)*($this->averageScreenPercentage/100);
         $this->calculatedPowerConsumptionPerYearCase1=$calculationResult;
     }
 	public function calculateYearConsumptionCase2() {
-		//averageHoursADayPeryUser
 		$averageTimePerDayOneUserSpendsOnSocialNetworksHours=2.25;
-		//N_social_networks_daily_users
 		$numberOfUsers=2620000000;
-		//365 days
-		//24 hours ->don't need 24 hours becuse there is variable $averageTimePerDayOneUserSpendsOnSocialNetworksHours
-		//60 minutes
-		//60 seconds
-		//% oled monitors
 		$OLEDmonitorsShare=0.308;
-		$OtherCalculatedParameters=$averageTimePerDayOneUserSpendsOnSocialNetworksHours*$numberOfUsers*365*60*60*$OLEDmonitorsShare;
+		$OtherCalculatedParameters=$averageTimePerDayOneUserSpendsOnSocialNetworksHours*$numberOfUsers*365*$OLEDmonitorsShare;
 		$NumberOfPixelsCase2=1080*1920;
-		$calculationResult=$OtherCalculatedParameters*$NumberOfPixelsCase2*$this->power*$this->averageScreenPercentage;
+		$calculationResult=$OtherCalculatedParameters*$NumberOfPixelsCase2*($this->power)*($this->averageScreenPercentage/100);
         $this->calculatedPowerConsumptionPerYearCase2=$calculationResult;
     }	
 	public function increaseAverageScreenPercentage90Percent($percentageToAdd) {

@@ -129,7 +129,7 @@ function drawChart2() {
                 <tr>
 					<th>#</th>
                     <th>OZNAKA RAZREDA (R,G,B)</th>
-                    <th>potrošnja energije po pikselu (J)</th>
+                    <th>potrošnja energije po pikselu (µWh)</th>
                     <th>Prikaz raspona boja</th>
 					<th>Prosječni prostotak zaslona (%)</th>
                 </tr>
@@ -155,7 +155,7 @@ function drawChart2() {
 						echo "(".$prikaz[$i]->getR().",".$prikaz[$i]->getG().",".$prikaz[$i]->getB().")";	
 						echo "</td>";	
 						echo "<td>";	
-						echo $prikaz[$i]->getPower();	
+						echo $prikaz[$i]->getPower()*pow(10,15)." *10^3";	
 						echo "</td>";
 						echo "<td class='gardijent' style='background: linear-gradient(to right, rgb"."(".$prikaz[$i]->getR().",".$prikaz[$i]->getG().",".$prikaz[$i]->getB().")"." 0%, rgb( ";
 						echo $prikaz[$i]->getREnd() . ",";
@@ -183,7 +183,7 @@ function drawChart2() {
                 <tr>
 					<th>#</th>
                     <th>OZNAKA RAZREDA (R,G,B)</th>
-                    <th>potrošnja energije po pikselu (J)</th>
+                    <th>potrošnja energije po pikselu  (µWh)</th>
                     <th>Prikaz raspona boja</th>
 					<th>Prosječni prostotak zaslona (%)</th>
                 </tr>
@@ -209,7 +209,7 @@ function drawChart2() {
 						echo "(".$prikaz[$i]->getR().",".$prikaz[$i]->getG().",".$prikaz[$i]->getB().")";	
 						echo "</td>";	
 						echo "<td>";	
-						echo $prikaz[$i]->getPower();	
+						echo $prikaz[$i]->getPower()*pow(10,15)." *10^3";	
 						echo "</td>";
 						echo "<td class='gardijent' style='background: linear-gradient(to right, rgb"."(".$prikaz[$i]->getR().",".$prikaz[$i]->getG().",".$prikaz[$i]->getB().")"." 0%, rgb( ";
 						echo $prikaz[$i]->getREnd() . ",";
@@ -241,7 +241,7 @@ function drawChart2() {
                 <tr>
 					<th>#</th>
                     <th>OZNAKA RAZREDA (R,G,B)</th>
-                    <th>potrošnja energije po pikselu (J)</th>
+                    <th>potrošnja energije po pikselu  (µWh) </th>
                     <th>Prikaz raspona boja</th>
 					<th>Prosječni prostotak zaslona (%)</th>
                 </tr>
@@ -265,7 +265,7 @@ function drawChart2() {
 						echo "(".$prikaz[$i]->getR().",".$prikaz[$i]->getG().",".$prikaz[$i]->getB().")";	
 						echo "</td>";	
 						echo "<td>";	
-						echo $prikaz[$i]->getPower();	
+						echo $prikaz[$i]->getPower()*pow(10,15)." *10^3";	
 						echo "</td>";
 						echo "<td class='gardijent' style='background: linear-gradient(to right, rgb"."(".$prikaz[$i]->getR().",".$prikaz[$i]->getG().",".$prikaz[$i]->getB().")"." 0%, rgb( ";
 						echo $prikaz[$i]->getREnd() . ",";

@@ -61,7 +61,7 @@ $prikaz=dohvatiEnergetskeKlase();
                 <tr>
 					<th>#</th>
                     <th>OZNAKA RAZREDA (R,G,B)</th>
-                    <th>potrošnja energije po pikselu (J)</th>
+                    <th>potrošnja energije po pikselu (µWh)</th>
                     <th>Prikaz raspona boja</th>
                 </tr>
             </thead>
@@ -84,7 +84,7 @@ $prikaz=dohvatiEnergetskeKlase();
 						echo "($r,$g,$b)";	
 						echo "</td>";	
 						echo "<td>";	
-						echo $p;	
+						echo $p*pow(10,15)." *10^3";	
 						echo "</td>";
 						echo "<td class='gardijent' style='background: linear-gradient(to right, rgb($r,$g,$b) 0%, rgb( ";
 						if(($r+50)>255) echo 255 . ",";
@@ -127,19 +127,19 @@ function drawChart() {
 							});
 	}
 	  
-	  echo "['Boja', 'Energija(J)', { role: 'style' }],";
+	  echo "['Boja', 'Energija (µWh*10^3)', { role: 'style' }],";
 	  for ($i = 0; $i <10; $i++) {
 		if($i==(count($prikaz)-1)){
-			echo "['".$prikaz[$i]->getRGBString()."',".$prikaz[$i]->getPower().",'".$prikaz[$i]->getHexValue()."'"."]";
+			echo "['".$prikaz[$i]->getRGBString()."',".$prikaz[$i]->getPower()*pow(10,15).",'".$prikaz[$i]->getHexValue()."'"."]";
 		}else{
-			echo "['".$prikaz[$i]->getRGBString()."',".$prikaz[$i]->getPower().",'".$prikaz[$i]->getHexValue()."'"."],";
+			echo "['".$prikaz[$i]->getRGBString()."',".$prikaz[$i]->getPower()*pow(10,15).",'".$prikaz[$i]->getHexValue()."'"."],";
 		}
 	}
 	  ?>
 ]);
   var options = {title:'Prikaz 10 najefikasnijih energetskih razreda',height:800,bar:{gap: 0 },
   hAxis: {title: "Razred" , slantedText:true, slantedTextAngle:90 },
-  vAxis: {title: "Jedinična potrošnja energije"}};
+  vAxis: {title: "Jedinična potrošnja energije (µWh*10^3)"}};
   var chart = new google.visualization.ColumnChart(document.getElementById('histogram1'));
   chart.draw(data, options);
 }
@@ -155,19 +155,19 @@ function drawChart2() {
 	}
 	  
 	  
-	  echo "['Boja', 'Energija(J)', { role: 'style' }],";
+	  echo "['Boja', 'Energija(µWh*10^3)', { role: 'style' }],";
 	  for ($i = 0; $i < 10; $i++) {
 		if($i==(count($prikaz)-1)){
-			echo "['".$prikaz[$i]->getRGBString()."',".$prikaz[$i]->getPower().",'".$prikaz[$i]->getHexValue()."'"."]";
+			echo "['".$prikaz[$i]->getRGBString()."',".$prikaz[$i]->getPower()*pow(10,15).",'".$prikaz[$i]->getHexValue()."'"."]";
 		}else{
-			echo "['".$prikaz[$i]->getRGBString()."',".$prikaz[$i]->getPower().",'".$prikaz[$i]->getHexValue()."'"."],";
+			echo "['".$prikaz[$i]->getRGBString()."',".$prikaz[$i]->getPower()*pow(10,15).",'".$prikaz[$i]->getHexValue()."'"."],";
 		}
 	}
 	  ?>
 ]);
   var options2 = {title:'Prikaz 10 najmanjeefikasnih energetskih razreda',height:800,bar:{gap: 0 },
   hAxis: {title: "Razred" , slantedText:true, slantedTextAngle:90 },
-  vAxis: {title: "Jedinična potrošnja energije"}
+  vAxis: {title: "Jedinična potrošnja energije (µWh*10^3) "}
   };
   var chart2 = new google.visualization.ColumnChart(document.getElementById('histogram2'));
   chart2.draw(data2, options2);
